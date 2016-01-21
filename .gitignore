@@ -1,0 +1,30 @@
+*.uvopt
+*.o
+*.dep
+*.bak
+*.map
+*.uvgui*
+*.htm
+*.axf
+*.hx
+*.lnp
+*.sct
+*.crf
+*.d
+*.DS_Store
+History/
+__Previews/
+
+#Altium
+*/History/*
+*.PrjPCBStructure
+*.SchDocPreview
+*.PcbDocPreview
+*\__Previews
+*\History
+*.PrjPcbStructure
+*~$*
+*/Project Logs*
+*.LOG
+*/PCB/Project Logs for MagLev/
+MagLev/PCB/Project Logs for MagLev/

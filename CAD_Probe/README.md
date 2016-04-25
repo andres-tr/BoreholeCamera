@@ -1,6 +1,5 @@
 # Probe CAD
 
-
 For the probe design it is desired to achieved the following:
 
  - Waterproof (1000m = 9.883MPa).
@@ -13,3 +12,5 @@ For the probe design it is desired to achieved the following:
 <p align="center">
   <img src=https://github.com/andres-tr/BoreholeCamera/blob/master/img/Exploded.gif />
 </p>
+
+**Note:** This first design doesn't consider actual dimensions for bolts, clamps, covers and the enclosure itself, its main function is to propose a solution. 

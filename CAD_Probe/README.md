@@ -9,7 +9,7 @@ For the probe design it is desired to achieved the following:
  - Mechanical design that allows it to stay centered inside the waterhole.
 
 **Computer asisted desing so far**
-![Computer asisted design so far](https://github.com/andres-tr/BoreholeCamera/blob/master/img/Exploded.gif "Exploded Probe CAD")
 
-
-
+<p align="center">
+  <img src=https://github.com/andres-tr/BoreholeCamera/blob/master/img/Exploded.gif />
+</p>

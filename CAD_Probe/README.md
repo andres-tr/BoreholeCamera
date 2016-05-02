@@ -13,4 +13,4 @@ For the probe design it is desired to achieved the following:
   <img src=https://github.com/andres-tr/BoreholeCamera/blob/master/img/Exploded.gif />
 </p>
 
-**Note:** This first design doesn't consider actual dimensions for bolts, clamps, covers and the enclosure itself, its main function is to propose a solution. 
+**Note:** This first design doesn't consider proper dimensions for bolts, clamps, covers and the enclosure itself, its main function is to propose a solution. 

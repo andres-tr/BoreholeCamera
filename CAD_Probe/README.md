@@ -12,7 +12,7 @@ For the probe design it is desired to achieved the following:
 This way of attaching fins seems to increase its hydrodynamic resistance and also it seems to be more complex to manufacture it because of the intereference points shown in the image below and if the fins are shaped to the form of the enclosure.
 
 <p align="center">
-  <img src=https://github.com/andres-tr/BoreholeCamera/blob/Cylinder/img/Interference.png />
+  <img src=https://github.com/andres-tr/BoreholeCamera/blob/cylinder/img/Interference.png />
 </p>
 
 **Note:** 

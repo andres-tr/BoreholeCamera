@@ -9,8 +9,12 @@ For the probe design it is desired to achieved the following:
 
 **Computer asisted desing so far**
 
+This way of attaching fins seems to increase its hydrodynamic resistance and also it seems to be more complex to manufacture it because of the intereference points shown in the image below and if the fins are shaped to the form of the enclosure.
+
 <p align="center">
-  <img src=https://github.com/andres-tr/BoreholeCamera/blob/master/img/Exploded.gif />
+  <img src=https://github.com/andres-tr/BoreholeCamera/blob/master/img/Interference.png />
 </p>
 
-**Note:** This first design doesn't consider proper dimensions for bolts, clamps, covers and the enclosure itself, its main function is to propose a solution. 
+**Note:** 
+ - This first design doesn't consider proper dimensions for bolts, clamps, covers and the enclosure itself, its main function is to propose a solution.
+ - This branch has a diferent aproach for the initial computer asisted desing, instead of a cube its main shape is a cylinder. Change to Cube branch to see previous desing.  

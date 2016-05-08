@@ -12,6 +12,7 @@
 *.crf
 *.d
 *.DS_Store
+*.xls#
 History/
 __Previews/
 

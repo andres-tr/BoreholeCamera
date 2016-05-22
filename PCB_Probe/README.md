@@ -2,8 +2,22 @@
 
 Electronics inside the probe have the following characteristics:
 
- - High luminosity (750 lm)
- - Compact design with SMD ICs
+ - 750 lumens
  - Minimum power consumption in order to preserve cable condition 
- - PCB design to provide LEDs around the camera lens evenly
+ - PCB designed to provide LEDs around the camera lens evenly
+
+Top side of the PCB
+
+<p align="center">
+  <img src=https://github.com/andres-tr/BoreholeCamera/blob/master/img/PCB_Probe_Top2D.png />
+</p>
+
+Bottom side of the PCB
+<p align="center">
+  <img src=https://github.com/andres-tr/BoreholeCamera/blob/master/img/PCB_Probe_Bottom2D.png />
+</p>
+
+
+
+
 

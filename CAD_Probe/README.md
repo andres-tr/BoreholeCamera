@@ -1,6 +1,6 @@
 # Probe CAD
 
-For the probe design it is desired to achieved the following:
+For the probe design it is desired to achieve the following:
 
  - Waterproof (1000m = 9.883MPa).
  - High temperature resistant (90ºC).

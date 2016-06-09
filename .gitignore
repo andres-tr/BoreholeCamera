@@ -28,5 +28,7 @@ __Previews/
 */Project Logs*
 *.LOG
 *.dat
+
 #AI
 OldVersions/
+lockfile.lck

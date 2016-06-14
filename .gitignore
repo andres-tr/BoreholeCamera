@@ -28,6 +28,9 @@ __Previews/
 */Project Logs*
 *.LOG
 *.dat
+*.OutJob
+Project Outputs for PCB_Probe/
+Project Outputs for PCB_Winch/
 
 #AI
 OldVersions/

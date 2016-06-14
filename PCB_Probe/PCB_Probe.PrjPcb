@@ -128,90 +128,62 @@ DocumentPath=Project Outputs for PCB_Probe\Design Rule Check - PCB.html
 DItemRevisionGUID=
 
 [GeneratedDocument2]
-DocumentPath=Project Outputs for Free Documents\NC Drill\PCB-RoundHoles.TXT
-DItemRevisionGUID=
-
-[GeneratedDocument3]
 DocumentPath=Project Outputs for PCB_Probe\NC Drill\PCB-RoundHoles.TXT
 DItemRevisionGUID=
 
-[GeneratedDocument4]
-DocumentPath=Project Outputs for Free Documents\NC Drill\PCB-SlotHoles.TXT
-DItemRevisionGUID=
-
-[GeneratedDocument5]
+[GeneratedDocument3]
 DocumentPath=Project Outputs for PCB_Probe\NC Drill\PCB-SlotHoles.TXT
 DItemRevisionGUID=
 
-[GeneratedDocument6]
-DocumentPath=Project Outputs for Free Documents\NC Drill\PCB.DRR
-DItemRevisionGUID=
-
-[GeneratedDocument7]
+[GeneratedDocument4]
 DocumentPath=Project Outputs for PCB_Probe\NC Drill\PCB.DRR
 DItemRevisionGUID=
 
-[GeneratedDocument8]
-DocumentPath=Project Outputs for Free Documents\Gerber\PCB.EXTREP
-DItemRevisionGUID=
-
-[GeneratedDocument9]
+[GeneratedDocument5]
 DocumentPath=Project Outputs for PCB_Probe\Gerber\PCB.EXTREP
 DItemRevisionGUID=
 
-[GeneratedDocument10]
+[GeneratedDocument6]
 DocumentPath=Project Outputs for PCB_Probe\Gerber\PCB.GBL
 DItemRevisionGUID=
 
-[GeneratedDocument11]
+[GeneratedDocument7]
 DocumentPath=Project Outputs for PCB_Probe\Gerber\PCB.GBO
 DItemRevisionGUID=
 
-[GeneratedDocument12]
+[GeneratedDocument8]
 DocumentPath=Project Outputs for PCB_Probe\Gerber\PCB.GBP
 DItemRevisionGUID=
 
-[GeneratedDocument13]
+[GeneratedDocument9]
 DocumentPath=Project Outputs for PCB_Probe\Gerber\PCB.GBS
 DItemRevisionGUID=
 
-[GeneratedDocument14]
+[GeneratedDocument10]
 DocumentPath=Project Outputs for PCB_Probe\Gerber\PCB.GTL
 DItemRevisionGUID=
 
-[GeneratedDocument15]
+[GeneratedDocument11]
 DocumentPath=Project Outputs for PCB_Probe\Gerber\PCB.GTO
 DItemRevisionGUID=
 
-[GeneratedDocument16]
+[GeneratedDocument12]
 DocumentPath=Project Outputs for PCB_Probe\Gerber\PCB.GTP
 DItemRevisionGUID=
 
-[GeneratedDocument17]
+[GeneratedDocument13]
 DocumentPath=Project Outputs for PCB_Probe\Gerber\PCB.GTS
 DItemRevisionGUID=
 
-[GeneratedDocument18]
-DocumentPath=Project Outputs for Free Documents\NC Drill\PCB.LDP
-DItemRevisionGUID=
-
-[GeneratedDocument19]
+[GeneratedDocument14]
 DocumentPath=Project Outputs for PCB_Probe\NC Drill\PCB.LDP
 DItemRevisionGUID=
 
-[GeneratedDocument20]
-DocumentPath=Project Outputs for Free Documents\Gerber\PCB.REP
-DItemRevisionGUID=
-
-[GeneratedDocument21]
+[GeneratedDocument15]
 DocumentPath=Project Outputs for PCB_Probe\Gerber\PCB.REP
 DItemRevisionGUID=
 
-[GeneratedDocument22]
-DocumentPath=Project Outputs for Free Documents\Gerber\PCB.RUL
-DItemRevisionGUID=
-
-[GeneratedDocument23]
+[GeneratedDocument16]
 DocumentPath=Project Outputs for PCB_Probe\Gerber\PCB.RUL
 DItemRevisionGUID=
 

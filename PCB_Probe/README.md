@@ -9,12 +9,12 @@ Electronics inside the probe have the following characteristics:
 Top side of the PCB
 
 <p align="center">
-  <img src=https://github.com/andres-tr/BoreholeCamera/tree/master/img/PCB_Probe_Top2D.png />
+  <img src=https://github.com/andres-tr/BoreholeCamera/blob/master/img/PCB_Probe_Top2D.png />
 </p>
 
 Bottom side of the PCB
 <p align="center">
-  <img src=https://github.com/andres-tr/BoreholeCamera/tree/master/img/PCB_Probe_Bottom2D.png />
+  <img src=https://github.com/andres-tr/BoreholeCamera/blob/master/img/PCB_Probe_Bottom2D.png />
 </p>
 
 

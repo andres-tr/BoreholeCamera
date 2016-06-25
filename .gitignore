@@ -35,3 +35,7 @@ Project Outputs for PCB_Winch/
 #AI
 OldVersions/
 lockfile.lck
+/CAD_Probe/PCB/STEP/*iam
+/CAD_Probe/PCB/STEP/*ipt
+CAD_Probe/Shaft Collar/
+

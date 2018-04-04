@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+from datetime import datetime
 GPIO.setmode(GPIO.BCM)
 
 input_A = 18
@@ -8,9 +9,7 @@ input_B = 23
 lastEncoded = 0
 encoderValue = 0
 
-lastMSB = 0
-lastLSB = 0
-
+#Interrup Service Routine
 def updateEncVal(channel):
     global  lastEncoded, encoderValue
     MSB = GPIO.input(input_A)
@@ -23,16 +22,20 @@ def updateEncVal(channel):
         encoderValue= encoderValue -1
     lastEncoded = encoded
 
+#GPIO Setup
 GPIO.setup(input_A, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 GPIO.setup(input_B, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
 #Attach interrupt
-
 GPIO.add_event_detect(input_A, GPIO.BOTH, callback = updateEncVal)
 GPIO.add_event_detect(input_B, GPIO.BOTH, callback = updateEncVal)
 
+#Log data to txt file
+f = open("/media/pi/HD/logenc/" + time.strftime("%d_%m_%Y_%H_%M") + '.txt','w+')
+
 while True:
     print("Encoder Value: " + str(encoderValue) + "  Metros:"+ str((encoderValue*0.3330096)/800))
+    f.write(datetime.now().strftime('%H%M%S.%f') + " , " + str(encoderValue) + " , "+ str((encoderValue*0.3330096)/800)+ "\n")
     time.sleep(0.1)
 
 

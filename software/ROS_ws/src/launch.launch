@@ -1,0 +1,24 @@
+<launch>
+
+<node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 base_footprint imu 400" />
+
+<node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf" output="screen">
+  <param name="output_frame" value="odom_combined"/>
+  <param name="base_footprint_frame" value="base_footprint"/>
+  <param name="freq" value="60.0"/>
+  <param name="sensor_timeout" value="10.0"/>
+  <param name="odom_used" value="false"/>
+  <param name="imu_used" value="true"/>
+  <param name="vo_used" value="true"/>
+
+  <remap from="vo" to="/odom" />
+  <remap from="imu_data" to="/imu" />
+
+</node>
+
+
+<node name="odometry" pkg="odometry"  type="odometry.py" output="screen"/>
+<node name="imu_metamotionr" pkg="imu_metamotionr"  type="imu.py" output="screen"/>
+<node name="rviz" pkg="rviz"  type="rviz"/>
+
+</launch>

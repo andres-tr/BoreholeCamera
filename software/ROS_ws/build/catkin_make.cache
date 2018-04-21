@@ -1,0 +1,2 @@
+beginner_tutorials:imu_metamotionr:odometry
+-DCATKIN_DEVEL_PREFIX=/home/parallels/BoreholeCamera/software/ROS_ws/devel -DCMAKE_INSTALL_PREFIX=/home/parallels/BoreholeCamera/software/ROS_ws/install -G Unix Makefiles

@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/odom.dir/src/odom.cpp.o  -o /home/parallels/BoreholeCamera/software/ROS_ws/devel/lib/odometry/odom -rdynamic 

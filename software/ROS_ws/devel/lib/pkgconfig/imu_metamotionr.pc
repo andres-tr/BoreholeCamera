@@ -1,0 +1,8 @@
+prefix=/home/parallels/BoreholeCamera/software/ROS_ws/devel
+
+Name: imu_metamotionr
+Description: Description of imu_metamotionr
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/parallels/BoreholeCamera/software/ROS_ws/devel/lib 
+Requires: 

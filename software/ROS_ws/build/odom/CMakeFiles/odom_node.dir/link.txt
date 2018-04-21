@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/odom_node.dir/src/odom_enc.cpp.o  -o /home/parallels/BoreholeCamera/software/ROS_ws/devel/lib/odom/odom_node -rdynamic 

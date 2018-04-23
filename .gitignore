@@ -39,3 +39,8 @@ lockfile.lck
 /CAD_Probe/PCB/STEP/*ipt
 CAD_Probe/Shaft Collar/
 *.tmp
+
+
+#ROS
+*/bin/
+*/build/

@@ -16,9 +16,9 @@
 
 </node>
 
-
 <node name="odometry" pkg="odometry"  type="odometry.py" output="screen"/>
 <node name="imu_metamotionr" pkg="imu_metamotionr"  type="imu.py" output="screen"/>
 <node name="rviz" pkg="rviz"  type="rviz"/>
+<node name="path_node" pkg="path_node"  type="path_node.py" output="screen"/>
 
 </launch>

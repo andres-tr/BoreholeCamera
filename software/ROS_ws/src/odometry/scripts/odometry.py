@@ -1,50 +1,73 @@
 #!/usr/bin/env python
 import math
-from math import sin, cos, pi
 
 import rospy
 import tf
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Point, Pose, Quaternion, Twist, Vector3
 
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+
 rospy.init_node('odometry_publisher')
 
 odom_pub = rospy.Publisher("odom", Odometry, queue_size=50)
 odom_broadcaster = tf.TransformBroadcaster()
 
+input_A = 18
+input_B = 23
+
+lastEncoded = 0
+encoderValue = 0
+
 x = 0.0
 y = 0.0
-z = 0
-th = 0.0
+z = 0.0
 
-vx = 0.000
-vy = 0.000
-vz = 0.1
-vth = 0.0
+vx = 0.0
+vy = 0.0
+vz = 0.0
 
 current_time = rospy.Time.now()
 last_time = rospy.Time.now()
 
-r = rospy.Rate(30)
-while not rospy.is_shutdown():
+# GPIO Setup
+GPIO.setup(input_A, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+GPIO.setup(input_B, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+
+# attach interrupt
+GPIO.add_event_detect(input_A, GPIO.BOTH, callback = updateEncVal)
+GPIO.add_event_detect(input_B, GPIO.BOTH, callback = updateEncVal)
+
+# interrupt Service Routine
+def updateEncVal(channel):
+    global  lastEncoded, encoderValue, current_time, last_time
+   
+    # obtain time and time elapsed 
     current_time = rospy.Time.now()
-
-    # compute odometry in a typical way given the velocities of the robot
     dt = (current_time - last_time).to_sec()
-    delta_x = (vx * cos(th) - vy * sin(th)) * dt
-    delta_y = (vx * sin(th) + vy * cos(th)) * dt
-    delta_z = vz*dt
-    delta_th = vth*dt
 
-    x += delta_x
-    y += delta_y
-    z += delta_z
-    th += delta_th
+    # read Encoder pins, from encoder position determine direction
+    MSB = GPIO.input(input_A)
+    LSB = GPIO.input(input_B)
+    encoded = (MSB << 1)| LSB
+    suma  = (lastEncoded << 2) | encoded 
+    if suma == 13 or suma == 4 or suma == 2 or suma == 11:
+        encoderValue = encoderValue +1
+    if suma == 14 or suma == 7 or suma == 1 or suma == 8:
+        encoderValue= encoderValue -1
+    
+    # compute distance and velocity
+    de = Encoded - lastencoded
+    lastEncoded = encoded
+    x = (encoderValue*0.3330096)/800
+    vx = de/dt
 
-    # since all odometry is 6DOF we'll need a quaternion created from yaw
-    odom_quat = tf.transformations.quaternion_from_euler(0, 0, th)
 
-    # first, we'll publish the transform over tf
+    #since all odometry is 6DOF we'll need a quaternion created from yaw
+    odom_quat = tf.transformations.quaternion_from_euler(0, 0, 0)
+
+    #first, we'll publish the transform over tf
     odom_broadcaster.sendTransform(
         (x, y, z),
         odom_quat,
@@ -66,10 +89,9 @@ while not rospy.is_shutdown():
    
     # set the velocity
     odom.child_frame_id = "base_link"
-    odom.twist.twist = Twist(Vector3(vx, vy, vz), Vector3(0, 0, vth))
+    odom.twist.twist = Twist(Vector3(0, 0, vz), Vector3(0, 0, 0))
 
     # publish the message
     odom_pub.publish(odom)
 
     last_time = current_time
-    r.sleep()

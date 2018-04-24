@@ -42,5 +42,10 @@ CAD_Probe/Shaft Collar/
 
 
 #ROS
-*/bin/
-*/build/
+bin/
+build/
+devel/
+lib/
+msg_gen/
+srv_gen/
+

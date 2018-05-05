@@ -44,8 +44,11 @@ CAD_Probe/Shaft Collar/
 #ROS
 bin/
 build/
+install/
 devel/
 lib/
 msg_gen/
 srv_gen/
+.catkin_workspace
+CMakeLists.txt
 

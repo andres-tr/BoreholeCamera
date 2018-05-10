@@ -35,13 +35,10 @@ last_time = rospy.Time.now()
 GPIO.setup(input_A, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 GPIO.setup(input_B, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
-# attach interrupt
-GPIO.add_event_detect(input_A, GPIO.BOTH, callback = updateEncVal)
-GPIO.add_event_detect(input_B, GPIO.BOTH, callback = updateEncVal)
 
 # interrupt Service Routine
 def updateEncVal(channel):
-    global  lastEncoded, encoderValue, current_time, last_time
+    global  lastEncoded, encoderValue, current_time, last_time, x, y, z, vx, vy,vz
    
     # obtain time and time elapsed 
     current_time = rospy.Time.now()
@@ -58,12 +55,22 @@ def updateEncVal(channel):
         encoderValue= encoderValue -1
     
     # compute distance and velocity
-    de = Encoded - lastencoded
+    de = encoded - lastEncoded
     lastEncoded = encoded
-    x = (encoderValue*0.3330096)/800
-    vx = de/dt
+    z = (encoderValue*0.3330096)/800
+    vz = de/dt
+
+    last_time = current_time
 
 
+# attach interrupt
+GPIO.add_event_detect(input_A, GPIO.BOTH, callback = updateEncVal)
+GPIO.add_event_detect(input_B, GPIO.BOTH, callback = updateEncVal)
+
+
+rate = rospy.Rate(10) # 10hz
+
+while True:
     #since all odometry is 6DOF we'll need a quaternion created from yaw
     odom_quat = tf.transformations.quaternion_from_euler(0, 0, 0)
 
@@ -85,8 +92,8 @@ def updateEncVal(channel):
     odom.pose.pose = Pose(Point(x, y, z), Quaternion(*odom_quat))
 
     odom.pose.covariance = [0.0000000001,  0.0,  0.0,  0.0,  0.0,  0.0, 0.0,  0.0000000001,  0.0,  0.0,  0.0,  0.0, 0.0,   0.0, 0.0000000001,  0.0,  0.0,  0.0, 0.0,   0.0,  0.0,  0.0000000001,  0.0,  0.0, 0.0,   0.0,  0.0,  0.0,  0.000000001,  0.0, 0.0,   0.0,  0.0,  0.0,  0.0,  0.0000000001]
-	
-   
+
+
     # set the velocity
     odom.child_frame_id = "base_link"
     odom.twist.twist = Twist(Vector3(0, 0, vz), Vector3(0, 0, 0))
@@ -94,4 +101,4 @@ def updateEncVal(channel):
     # publish the message
     odom_pub.publish(odom)
 
-    last_time = current_time
+    rate.sleep()

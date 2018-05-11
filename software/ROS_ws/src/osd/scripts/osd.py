@@ -3,7 +3,7 @@ import rospy
 from nav_msgs.msg import Odometry
 
 def callback(data):
-    rospy.loginfo(rospy.get_caller_id() + "I heard %i", data.pose)
+    rospy.loginfo(rospy.get_caller_id() + "I heard %d", data.pose.pose.position.z)
     
 def listener():
 

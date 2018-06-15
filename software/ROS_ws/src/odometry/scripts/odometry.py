@@ -17,8 +17,11 @@ odom_broadcaster = tf.TransformBroadcaster()
 input_A = 18
 input_B = 23
 
-lastEncoded = 0
+lastEncoderValue = 0
 encoderValue = 0
+
+lastEncoded = 0
+lastx = 0
 
 x = 0.0
 y = 0.0
@@ -38,11 +41,11 @@ GPIO.setup(input_B, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
 # interrupt Service Routine
 def updateEncVal(channel):
-    global  lastEncoded, encoderValue, current_time, last_time, x, y, z, vx, vy,vz
+    global  lastEncoded, lastEncoderValue, encoderValue, current_time, last_time, x, y, z, vx, vy,vz
    
     # obtain time and time elapsed 
-    current_time = rospy.Time.now()
-    dt = (current_time - last_time).to_sec()
+    #current_time = rospy.Time.now()
+    #dt = (current_time - last_time).to_sec()
 
     # read Encoder pins, from encoder position determine direction
     MSB = GPIO.input(input_A)
@@ -53,14 +56,17 @@ def updateEncVal(channel):
         encoderValue = encoderValue +1
     if suma == 14 or suma == 7 or suma == 1 or suma == 8:
         encoderValue= encoderValue -1
-    
-    # compute distance and velocity
-    de = encoded - lastEncoded
-    lastEncoded = encoded
-    z = (encoderValue*0.3330096)/800
-    vz = de/dt
+    lastEncoded = encoded    
 
-    last_time = current_time
+    # compute distance
+    x = (encoderValue*0.3330096)/800
+
+    # velocity
+    
+    #de = encoderValue - lastEncoderValue
+    #lastEncoderValue = encoderValue
+    #vx = de/dt
+    #last_time = current_time
 
 
 # attach interrupt
@@ -68,9 +74,10 @@ GPIO.add_event_detect(input_A, GPIO.BOTH, callback = updateEncVal)
 GPIO.add_event_detect(input_B, GPIO.BOTH, callback = updateEncVal)
 
 
-rate = rospy.Rate(10) # 10hz
+rate = rospy.Rate(25) # 10hz
 
 while True:
+
     #since all odometry is 6DOF we'll need a quaternion created from yaw
     odom_quat = tf.transformations.quaternion_from_euler(0, 0, 0)
 
@@ -88,15 +95,29 @@ while True:
     odom.header.stamp = current_time
     odom.header.frame_id = "odom"
 
+    # set time
+    current_time = rospy.Time.now()
+    dt = (current_time - last_time).to_sec()
+
     # set the position
     odom.pose.pose = Pose(Point(x, y, z), Quaternion(*odom_quat))
 
-    odom.pose.covariance = [0.0000000001,  0.0,  0.0,  0.0,  0.0,  0.0, 0.0,  0.0000000001,  0.0,  0.0,  0.0,  0.0, 0.0,   0.0, 0.0000000001,  0.0,  0.0,  0.0, 0.0,   0.0,  0.0,  0.0000000001,  0.0,  0.0, 0.0,   0.0,  0.0,  0.0,  0.000000001,  0.0, 0.0,   0.0,  0.0,  0.0,  0.0,  0.0000000001]
+    odom.pose.covariance = [0.0000000001,  0.0,  0.0,  0.0,  0.0,  0.0, 
+			    0.0,   99999, 0.0,  0.0,  0.0,  0.0, 
+			    0.0,   0.0, 99999,  0.0,  0.0,  0.0, 
+			    0.0,   0.0,  0.0,  99999,  0.0,  0.0, 
+			    0.0,   0.0,  0.0,  0.0,  99999,  0.0, 
+			    0.0,   0.0,  0.0,  0.0,  0.0,  99999]
 
+    # velocity    
+    dx = x - lastx
+    lastx = x
+    vx = dx/dt
+    last_time = current_time
 
     # set the velocity
     odom.child_frame_id = "base_link"
-    odom.twist.twist = Twist(Vector3(0, 0, vz), Vector3(0, 0, 0))
+    odom.twist.twist = Twist(Vector3(vx, vy, vz), Vector3(0, 0, 0))
 
     # publish the message
     odom_pub.publish(odom)

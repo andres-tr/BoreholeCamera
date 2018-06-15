@@ -34,7 +34,7 @@ if __name__ == '__main__':
     msg = Imu()
     msg.angular_velocity = Vector3(0.0000001,0.0000001,0.0000001)
     msg.linear_acceleration = Vector3(0.0000001,0.0000001,0.0000001)
-    msg.header.frame_id = "base_footprint"
+    msg.header.frame_id = "imu"
     pub = rospy.Publisher('imu/data_raw', Imu, queue_size=10)
     listener_imu()
 

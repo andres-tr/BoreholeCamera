@@ -14,13 +14,15 @@ def convert_accel(float_G):
 def convert_gyro(float_gyro):
 	return  float_gyro/57.295779
 
-with open("/home/parallels/Acc_X.csv", "r") as f:
+with open("/home/parallels/Acc_C.csv", "r") as f:
 	i = 0
-	with rosbag.Bag('/home/parallels/Acc_X.bag', 'w') as bag:
+	with rosbag.Bag('/home/parallels/Acc_C.bag', 'w') as bag:
 		reader = csv.reader(f)
 		for row in reader:
 			msg = Imu()
-			t = rospy.Time(1526707104.330 + float(row[2]))
+			#t = rospy.Time(1527696243.780 + float(row[2]))
+			#t = rospy.Time.from_sec(1527696243.780 + float(row[2]))
+			t = rospy.Time.from_sec(float(row[0])*0.001)
 			msg.header.stamp = t
 			msg.linear_acceleration = Vector3(convert_accel(float(row[3])), convert_accel(float(row[4])),convert_accel(float(row[5])))
 			bag.write('imu_acc', msg, t)

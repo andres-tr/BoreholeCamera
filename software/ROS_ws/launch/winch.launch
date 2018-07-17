@@ -1,7 +1,9 @@
 <launch>
    <!-- Launch Odometry -->
    <node name="odometry" pkg="odometry"  type="odometry.py" output="screen"/>
+   
 
+   <?ignore
    <!-- Launch video stream -->
    <include file="$(find video_stream_opencv)/launch/camera.launch" >
         <!-- node name and ros graph name -->
@@ -33,6 +35,6 @@
     />
 
    <!-- To kill rosbag record properly: rosnode kill /bag -->
-
-
+   ?>
+   
 </launch>

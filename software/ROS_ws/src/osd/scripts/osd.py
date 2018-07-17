@@ -27,10 +27,9 @@ def listener():
        cv2.putText(frame,text,(frame_width/3,frame_height/2),cv2.FONT_HERSHEY_DUPLEX,1,(255,255,255),1)
        cv2.imshow('CAM', frame)
        if cv2.waitKey(1) & 0xFF == ord('q'):
+          vcap.release()
+          cv2.destroyAllWindows()
           break
-       vcap.release()
-       out.release()
-       cv2.destroyAllWindows()
  
 
 if __name__ == '__main__':

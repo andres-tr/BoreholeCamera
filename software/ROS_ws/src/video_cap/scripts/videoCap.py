@@ -13,7 +13,7 @@ frame_height = int(vcap.get(4))
 
 length = int(vcap.get(cv2.CAP_PROP_FRAME_COUNT))
 #out = cv2.VideoWriter('/media/' + time.strftime("%d_%m_%Y_%H_%M") + '.avi',cv2.VideoWriter_fourcc(*'MPEG'), 6, (frame_width,frame_height))
-out = cv2.VideoWriter(time.strftime("%d_%m_%Y_%H_%M") + '.avi',cv2.VideoWriter_fourcc(*'MPEG'), 6, (frame_width,frame_height))
+out = cv2.VideoWriter('/home/parallels/'+ time.strftime("%d_%m_%Y_%H_%M") +'1.avi',cv2.VideoWriter_fourcc(*'MPEG'), 25, (frame_width,frame_height))
 
 cont = 0
 
@@ -32,7 +32,7 @@ def listener():
           ret, frame = vcap.retrieve()
           text = "Metros: " + str(meters)
           cv2.putText(frame,text,(frame_width/3,frame_height/2),cv2.FONT_HERSHEY_DUPLEX,1,(255,255,255),1)
-          cv2.imshow('CAM', frame)
+          cv2.imshow('Capture_Display', frame)
           out.write(frame)
           if cv2.waitKey(1) & 0xFF == ord('q'):
              vcap.release()

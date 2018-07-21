@@ -1,8 +1,8 @@
 <launch>
 
-<node name="osd" pkg="osd"  type="osd.py" output="screen"/>
+<node name="osd" pkg="osd"  type="osd.py" output="screen" launch-prefix="gnome-terminal --command"/>
 
-<node name="video_cap" pkg="video_cap"  type="videoCap.py" output="screen"/>
+<node name="video_cap" pkg="video_cap"  type="videoCap.py" output="screen" launch-prefix="gnome-terminal --command"/>
 
 
 </launch>

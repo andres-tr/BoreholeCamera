@@ -4,5 +4,14 @@
 
 <node name="video_cap" pkg="video_cap"  type="videoCap.py" output="screen" launch-prefix="gnome-terminal --command"/>
 
+<node pkg="rostopic" type="rostopic" name="arbitrary_name" args="pub /odom odometry.py/Odometry" output="screen" launch-prefix="gnome-terminal --command"/>
+
+<node name="video_publisher" pkg="video_publisher"  type="video_publisher.py" output="screen" launch-prefix="gnome-terminal --command"/>
+
+<node name="web_video_server" pkg="web_video_server"  type="web_video_server" output="screen" launch-prefix="gnome-terminal --command"/>
+
+<include file="$(find urdf_tutorial)/launch/display.launch">
+	<arg name="model" value="BoreholeCamera/software/ROS_ws/launch/robot.urdf"/>
+</include>
 
 </launch>

@@ -15,9 +15,9 @@ def convert_accel(float_G):
 def convert_gyro(float_gyro):
 	return  float_gyro/57.295779
 
-with open("/home/parallels/Gyro_C.csv", "r") as f:
+with open("/home/parallels/Gyro_ValleVid.csv", "r") as f:
 	i = 0
-	with rosbag.Bag('/home/parallels/Gyro_C.bag', 'w') as bag:
+	with rosbag.Bag('/home/parallels/Gyro_ValleVid.bag', 'w') as bag:
 		reader = csv.reader(f)
 		for row in reader:
 			msg = Imu()

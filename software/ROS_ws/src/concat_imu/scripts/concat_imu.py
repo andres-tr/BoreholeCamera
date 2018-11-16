@@ -7,6 +7,7 @@ def callback_acc(data):
     # rospy.loginfo(rospy.get_caller_id() + "I heard %f", data.linear_acceleration.x)    
     msg.header.stamp = data.header.stamp
     msg.linear_acceleration = Vector3(data.linear_acceleration.x, data.linear_acceleration.y , data.linear_acceleration.z)
+    msg.linear_acceleration_covariance =  [500.7, 0.0, 0.0, 500.7, 0.0, 0.0, 500.7, 0.0, 0.0]
     pub.publish(msg)
 
 def callback_gyro(data):

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<robot name="myfirst">
+  <link name="imu">
+    <visual>
+      <geometry>
+        <mesh filename="file:///home/parallels/BoreholeCamera/CAD_Probe/Assembly/STL/Assembly.stl" scale="0.025 0.025 0.025"/>
+      </geometry>
+      <origin rpy="0 -1.5708 0" xyz="0 0.08 0"/>   
+    </visual>
+  </link>
+</robot>

@@ -21,7 +21,7 @@ lastEncoderValue = 0
 encoderValue = 0
 
 lastEncoded = 0
-lastx = 0
+lastz = 0
 
 x = 0.0
 y = 0.0
@@ -59,7 +59,7 @@ def updateEncVal(channel):
     lastEncoded = encoded    
 
     # compute distance
-    x = (encoderValue*0.3330096)/800
+    z = ((encoderValue*0.3330096)/800)*-1
 
     # velocity
     
@@ -102,17 +102,17 @@ while True:
     # set the position
     odom.pose.pose = Pose(Point(x, y, z), Quaternion(*odom_quat))
 
-    odom.pose.covariance = [0.0000000001,  0.0,  0.0,  0.0,  0.0,  0.0, 
+    odom.pose.covariance = [99999,  0.0,  0.0,  0.0,  0.0,  0.0, 
 			    0.0,   99999, 0.0,  0.0,  0.0,  0.0, 
-			    0.0,   0.0, 99999,  0.0,  0.0,  0.0, 
+			    0.0,   0.0, 0.0000000001,  0.0,  0.0,  0.0, 
 			    0.0,   0.0,  0.0,  99999,  0.0,  0.0, 
 			    0.0,   0.0,  0.0,  0.0,  99999,  0.0, 
 			    0.0,   0.0,  0.0,  0.0,  0.0,  99999]
 
     # velocity    
-    dx = x - lastx
-    lastx = x
-    vx = dx/dt
+    dz = z - lastz
+    lastz = z
+    vz = dz/dt
     last_time = current_time
 
     # set the velocity

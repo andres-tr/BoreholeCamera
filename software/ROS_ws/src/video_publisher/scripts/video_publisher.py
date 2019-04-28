@@ -26,8 +26,8 @@ meters = 0.0
 def callback(data):
     #rospy.loginfo(rospy.get_caller_id() + "I heard %.3f", data.pose.pose.position.z)
     global meters
-    meters = (data.pose.pose.position.z)*-1
-
+    #meters = (data.pose.pose.position.z)*-1
+    meters = (data.pose.pose.position.z)
 def listener():
     global meters
     #rospy.init_node('listenerZvideoCap', anonymous=True)

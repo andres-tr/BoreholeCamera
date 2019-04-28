@@ -10,8 +10,8 @@
 
 <node name="web_video_server" pkg="web_video_server"  type="web_video_server" output="screen" launch-prefix="gnome-terminal --command"/>
 
-<include file="$(find urdf_tutorial)/launch/display.launch">
-	<arg name="model" value="BoreholeCamera/software/ROS_ws/launch/robot.urdf"/>
-</include>
+<!-- <include file="$(find urdf_tutorial)/launch/display.launch">
+	<arg name="model" value="/home/parallels/BoreholeCamera/software/ROS_ws/launch/robot.urdf"/>
+</include> -->
 
 </launch>

@@ -2,12 +2,12 @@
 
 <param name="/use_sim_time" value="True"/>
 <arg name="path" default="/home/parallels/" />
-<arg name="file_1" default="Odom_Valle" />
-<arg name="file_2" default="Acc_Valle" />
-<arg name="file_3" default="Gyro_Valle" />
-<arg name="file_4" default="Mag_Valle" />
+<arg name="file_1" default="SanMiguelito_Odome3" />
+<arg name="file_2" default="SanMiguelito_Acc3" />
+<arg name="file_3" default="SanMiguelito_Gyro3" />
+<arg name="file_4" default="SanMiguelito_Mag3" />
 
-<node pkg="rosbag" type="play" name="player" args="--clock   $(arg path)$(arg file_1).bag $(arg path)$(arg file_2).bag $(arg path)$(arg file_3).bag $(arg path)$(arg file_4).bag  " />
+<node pkg="rosbag" type="play" name="player" args="--clock -s 0 $(arg path)$(arg file_1).bag $(arg path)$(arg file_2).bag $(arg path)$(arg file_3).bag $(arg path)$(arg file_4).bag  " />
 
 <node name="concat_imu" pkg="concat_imu"  type="concat_imu.py" output="screen"/>
 

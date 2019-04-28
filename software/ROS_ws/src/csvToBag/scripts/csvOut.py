@@ -15,7 +15,7 @@ def listener_csvout():
     #rospy.Timer(rospy.Duration(2), callback_pose, oneshot=False)
     #rospy.sleep(10.)
     while not rospy.is_shutdown():
-    	rospy.sleep(10.0)
+    	rospy.sleep(1.9)
 
 
 

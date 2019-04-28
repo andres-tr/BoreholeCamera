@@ -14,13 +14,13 @@ def convert_accel(float_G):
 def convert_gyro(float_gyro):
 	return  float_gyro/57.295779
 
-with open("/home/parallels/Mag_ValleVid.csv", "r") as f:
+with open("/home/parallels/SanMiguelito_Mag4.csv", "r") as f:
 	i = 0
-	with rosbag.Bag('/home/parallels/Mag_ValleVid.bag', 'w') as bag:
+	with rosbag.Bag('/home/parallels/SanMiguelito_Mag4.bag', 'w') as bag:
 		reader = csv.reader(f)
 		for row in reader:
 			msg = MagneticField()
-			#t = rospy.Time(1527696243.596 + float(row[2]))
+			#t = rospy.Time.from_sec(1548444839.001 + float(row[2]))
 			t = rospy.Time.from_sec(float(row[0])*0.001)
 			msg.header.stamp = t
 			msg.magnetic_field = Vector3(float(row[3]), float(row[4]), float(row[5]))

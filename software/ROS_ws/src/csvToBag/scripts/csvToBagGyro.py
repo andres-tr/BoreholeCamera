@@ -15,9 +15,9 @@ def convert_accel(float_G):
 def convert_gyro(float_gyro):
 	return  float_gyro/57.295779
 
-with open("/home/parallels/Gyro_ValleVid.csv", "r") as f:
+with open("/home/parallels/SanMiguelito_Gyro4.csv", "r") as f:
 	i = 0
-	with rosbag.Bag('/home/parallels/Gyro_ValleVid.bag', 'w') as bag:
+	with rosbag.Bag('/home/parallels/SanMiguelito_Gyro4.bag', 'w') as bag:
 		reader = csv.reader(f)
 		for row in reader:
 			msg = Imu()
@@ -25,6 +25,7 @@ with open("/home/parallels/Gyro_ValleVid.csv", "r") as f:
 			#print '%.3f'% (float(row[0])*0.001)
 			#t = rospy.Time(1527696243, 701000000 + int(float(row[2])*10000000000) )
 			#t = rospy.Time.from_sec(float('%.3f'% (float(row[0])*0.001)))
+			#t = rospy.Time.from_sec(1548444839.073 + float(row[2]))
 			t = rospy.Time.from_sec(float(row[0])*0.001)
 			msg.header.stamp = t
 			msg.angular_velocity = Vector3(convert_gyro(float(row[3])), convert_gyro(float(row[4])),convert_gyro(float(row[5])))

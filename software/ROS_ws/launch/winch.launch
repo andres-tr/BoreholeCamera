@@ -2,11 +2,11 @@
    <!-- Launch Odometry -->
    <node name="odometry" pkg="odometry"  type="odometry.py" output="screen"/>
 
-   <!-- Launch rosbag
+   <!-- Launch rosbag -->
    <node pkg="rosbag" type="record"
-            args="-o /media/usb-drive/ /odom /VideoRaw"
+            args="-o /home/ubuntu /odom imu/data_raw imu/mag /temp"
     />
-   -->
+   
 
    <!-- To kill rosbag record properly: rosnode kill /bag -->
 

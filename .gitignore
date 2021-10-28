@@ -50,7 +50,6 @@ lib/
 msg_gen/
 srv_gen/
 .catkin_workspace
-CMakeLists.txt
 math
 rospy
 tf

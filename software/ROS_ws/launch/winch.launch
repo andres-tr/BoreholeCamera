@@ -2,13 +2,37 @@
    <!-- Launch Odometry -->
    <node name="odometry" pkg="odometry"  type="odometry.py" output="screen"/>
 
-   <!-- Launch rosbag -->
-   <node pkg="rosbag" type="record" 
+   <!-- Launch rosbag
+   <node pkg="rosbag" type="record"
             args="-o /media/usb-drive/ /odom /VideoRaw"
     />
-   
+   -->
+
    <!-- To kill rosbag record properly: rosnode kill /bag -->
-   
-   <node name="video_publisher" pkg="video_publisher"  type="video_publisher.py" output="screen"/>
+
+   <!--  <node name="video_publisher" pkg="video_publisher"  type="video_publisher.py" output="screen"/>
+   -->
+
+   <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 4.71239 3.14159 base_footprint imu 400" />
+
+   <node pkg="tf" type="static_transform_publisher" name="link2_broadcaster" args="0 0 0  0 0 0 base_footprint odom 400" />
+
+   <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf" output="screen">
+     <param name="output_frame" value="odom_combined"/>
+     <param name="freq" value="30"/>
+     <param name="odom_used" value="false"/>
+     <param name="imu_used" value="true"/>
+     <param name="vo_used" value="true"/>
+     <param name="debug" value="true"/>
+     <remap from="vo" to="/odom" />
+     <remap from="imu_data" to="imu/data" />
+
+   </node>
+
+   <node name="path_node" pkg="path_node"  type="path_node.py" output="screen"/>
+
+   <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_node" output="screen" args="_use_magnetic_fld_msg:=true _publish_debug_topics:=true _publish_tf:=false stateless:=false">
+    <param name="use_enu" value="true"/>
+   </node>
 
 </launch>

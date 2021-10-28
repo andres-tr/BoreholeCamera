@@ -1,0 +1,12 @@
+<launch>
+   <!-- Launch temperature node -->
+   <node name="temperature" pkg="temperature"  type="temperature.py" output="screen"/>
+
+   <!-- Launch status led node -->
+   <node name="status_led" pkg="status_led"  type="statusled.py" output="screen"/>
+
+   <!-- Launch imu node -->
+   <node name="imu" pkg="imu"  type="imu.py" output="screen"/>
+
+</launch>
+

@@ -3,8 +3,8 @@
    <node name="odometry" pkg="odometry"  type="odometry.py" output="screen"/>
 
    <!-- Launch rosbag -->
-   <node pkg="rosbag" type="record"
-            args="-o /home/ubuntu /odom imu/data_raw imu/mag /temp"
+   <node pkg="rosbag" type="record" name="rosbag_record"
+            args=" /odom /imu/data_raw /imu/mag /temp"
     />
    
 

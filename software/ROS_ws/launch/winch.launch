@@ -31,7 +31,7 @@
 
    <node name="path_node" pkg="path_node"  type="path_node.py" output="screen"/>
 
-   <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_node" output="screen" args="_use_magnetic_fld_msg:=true _publish_debug_topics:=true _publish_tf:=false stateless:=false">
+   <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_node" output="screen" args="_world_frame:=enu _use_mag:=false _use_magnetic_fld_msg:=false _publish_debug_topics:=true _publish_tf:=false stateless:=false">
     <param name="use_enu" value="true"/>
    </node>
 

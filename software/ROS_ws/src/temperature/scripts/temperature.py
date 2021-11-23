@@ -22,6 +22,7 @@ while not rospy.is_shutdown():
         	exit(1)
 	temp_sens = Temperature()
 	temp_sens.header.stamp = rospy.Time.now()
+	temp_sens.header.frame_id = "temp"	
 	temp_sens.temperature = sensor.temperature()
 	temp_pub.publish(temp_sens)
 	#rospy.loginfo(temp_sens)

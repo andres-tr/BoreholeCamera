@@ -5,10 +5,11 @@ from nav_msgs.msg import Odometry
 
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 
 val2 = 0
 delta = -0.1
+
 
 def update_line(hl, new_data):
     xdata, ydata, zdata = hl._verts3d
@@ -24,28 +25,34 @@ def callback(data):
     if ((val1 - val2) <= delta):
         val2 = val1
         print "Delta achieved"
-	update_line(hl, (2,2, val1))
-        plt.show(block=False)
-        plt.pause(0.01)
+	update_line(hl, (0,0, val1))
+        #plt.show(block=False)
+        #plt.pause(0.01)
 
 def listener():
     rospy.init_node('listZplot', anonymous=True)
     rospy.Subscriber("odom", Odometry, callback)
-
-    rospy.spin()
+    #rospy.spin()
+    plt.show(block=True)
 
 if __name__ == '__main__':
+    
     map = plt.figure()
     map_ax = Axes3D(map)
     map_ax.autoscale(enable=True, axis='both', tight=True)
 
     # # # Setting the axes properties
-    map_ax.set_xlim3d([0.0, 10.0])
-    map_ax.set_ylim3d([0.0, 10.0])
-    map_ax.set_zlim3d([0.0, 10.0])
+    map_ax.set_xlim3d([-10.0, 10.0])
+    map_ax.set_ylim3d([-10.0, 10.0])
+    map_ax.set_zlim3d([-10.0, 0.0])
+    
+    map_ax.set_title('Registro de Verticalidad')
+    map_ax.set_xlabel('X - ESTE - metros')
+    map_ax.set_ylabel('Y - NORTE - metros')
+    map_ax.set_zlabel('Z - PROFUNDIDAD - metros')    
 
     hl, = map_ax.plot3D([0], [0], [0])
-
+    
     listener()
 
 

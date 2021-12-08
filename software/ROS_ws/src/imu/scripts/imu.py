@@ -32,13 +32,13 @@ else:
 
 #Init Gyro
 #CTRL_REG1_G
-bus.write_byte_data(ag_add, 0x10, 0xC8)
+bus.write_byte_data(ag_add, 0x10, 0xC0)
 #CTRL_REG2_G
 bus.write_byte_data(ag_add, 0x11, 0x00)
 #CTRL_REG3_G
 bus.write_byte_data(ag_add, 0x12, 0x00)
 #CTRL_REG4
-bus.write_byte_data(ag_add, 0x1E, 0x38)
+bus.write_byte_data(ag_add, 0x1E, 0x3A)
 #ORIENT_CFG_G
 bus.write_byte_data(ag_add, 0x13, 0x00)
 
@@ -46,7 +46,7 @@ bus.write_byte_data(ag_add, 0x13, 0x00)
 #CTRL_REG5_XL
 bus.write_byte_data(ag_add, 0x1F, 0x38)
 #CTRL_REG6_XL
-bus.write_byte_data(ag_add, 0x20, 0xC8)
+bus.write_byte_data(ag_add, 0x20, 0xC0)
 #CTRL_REG7_XL
 bus.write_byte_data(ag_add, 0x21, 0x00)
 
@@ -102,7 +102,7 @@ while not rospy.is_shutdown():
 			#Twos complement * scale
                         #print "Gyro x:" + str(xgyro) + " y:" + str(ygyro) + " z: " + str(zgyro)
 			imu_msg.angular_velocity = Vector3(convert_gyro(xgyro), convert_gyro(ygyro),convert_gyro(zgyro))
-			imu_msg.angular_velocity_covariance =  [500.7, 0.0, 0.0, 500.7, 0.0, 0.0, 500.7, 0.0, 0.0]
+			imu_msg.angular_velocity_covariance =  [0.00000, 0.0, 0.0, 0.00000, 0.0, 0.0, 0.00000, 0.0, 0.0]
 			#imu_pub.publish(imu_msg)
 	else:
 		print "No entre"
@@ -113,15 +113,16 @@ while not rospy.is_shutdown():
                 acc = bus.read_i2c_block_data(ag_add,0x28,6)
 		if len(acc) == 6:
 			xacc = (acc[1] << 8) | acc[0]
-			xacc = float(numpy.int16(xacc))*0.000732
+			xacc = float(numpy.int16(xacc))*0.000061
 			yacc = (acc[3] << 8) | acc[2] 
-			yacc = float(numpy.int16(yacc))*0.000732
+			yacc = float(numpy.int16(yacc))*0.000061
 			zacc = (acc[5] << 8) | acc[4]
-			zacc = float(numpy.int16(zacc))*0.000732
+			zacc = float(numpy.int16(zacc))*0.000061
 			#Twos complement * scale
 			#print "Acc x:" + str(float(numpy.int16(xacc))*0.000732) + " y:" + str(float(numpy.int16(yacc))*0.000732) + " z: " + str(float(numpy.int16(zacc))*0.000732)
 			imu_msg.linear_acceleration = Vector3(convert_accel(xacc), convert_accel(yacc),convert_accel(zacc))
-                        imu_msg.linear_acceleration_covariance =  [500.7, 0.0, 0.0, 500.7, 0.0, 0.0, 500.7, 0.0, 0.0]
+                        imu_msg.linear_acceleration_covariance =  [0.00000, 0.0, 0.0, 0.00000, 0.0, 0.0, 0.00000, 0.0, 0.0]
+			imu_msg.orientation_covariance =  [-1, 0.0, 0.0, 0.00000, 0.0, 0.0, 0.00000, 0.0, 0.0]
 			#imu_pub.publish(imu_msg)
 	
 	imu_msg.header.frame_id = "imu"	
@@ -133,9 +134,9 @@ while not rospy.is_shutdown():
 	mag_msg.header.stamp = rospy.Time.now()
 	
 	#Check if Mag is available
-        byte = bus.read_byte_data(ag_add , 0x27)
+        byte = bus.read_byte_data(m_add , 0x27)
         if (byte & (1<<0)):
-                mag = bus.read_i2c_block_data(ag_add,0x28,6)
+                mag = bus.read_i2c_block_data(m_add,0x28,6)
                 if len(mag) == 6:
                         xmag = (mag[1] << 8) | mag[0]
 			xmag = float(numpy.int16(xmag))*0.00014

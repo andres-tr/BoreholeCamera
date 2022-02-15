@@ -1,18 +1,11 @@
 <launch>
-   <!-- Launch Odometry -->
-   <node name="odometry" pkg="odometry"  type="odometry.py" output="screen"/>
+  
+   <param name="/use_sim_time" value="True"/>
+   <arg name="path" default="/home/ubuntu/.ros/" />
+   <arg name="file_1" default="2022-02-09-12-03-53" />
 
-   <!-- Launch rosbag -->
-   <node pkg="rosbag" type="record" name="rosbag_record"
-            args=" /odom /imu/data_raw /imu/mag /temp"
-    />
-   
-
-   <!-- To kill rosbag record properly: rosnode kill /bag -->
-
-   <!--  <node name="video_publisher" pkg="video_publisher"  type="video_publisher.py" output="screen"/>
-   -->
-
+   <node pkg="rosbag" type="play" name="player" args="--clock -s 0 $(arg path)$(arg file_1).bag" />
+  
    <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 base_footprint imu 400" />
 
    <node pkg="tf" type="static_transform_publisher" name="link2_broadcaster" args="0 0 0  0 0 0 base_footprint odom 400" />

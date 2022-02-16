@@ -1,10 +1,10 @@
 <launch>
   
    <param name="/use_sim_time" value="True"/>
-   <arg name="path" default="/home/ubuntu/.ros/" />
+   <arg name="path" default="/home/parallels/" />
    <arg name="file_1" default="2022-02-09-12-03-53" />
 
-   <node pkg="rosbag" type="play" name="player" args="--clock -s 0 $(arg path)$(arg file_1).bag" />
+   <node pkg="rosbag" type="play" name="player" args="--clock -s 1200 $(arg path)$(arg file_1).bag" />
   
    <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 base_footprint imu 400" />
 

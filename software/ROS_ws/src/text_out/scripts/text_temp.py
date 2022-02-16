@@ -11,7 +11,7 @@ def callback_pose(data):
 
 def callback_odome(data):
     global z
-    z = data.pose.pose.position.z*-1
+    z = data.pose.pose.position.z
 
 def listener_csvout():
     rospy.init_node('listener_csvout', anonymous=True)

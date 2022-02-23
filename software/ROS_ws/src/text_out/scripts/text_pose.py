@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import rospy
+import time
 from sensor_msgs.msg import Temperature
 from geometry_msgs.msg import PoseWithCovarianceStamped
 from nav_msgs.msg import Odometry
@@ -24,11 +25,15 @@ def pose_callback(data):
 
 
 def txt_out():
-    print  str(x) + ";" + str(z_odom)
+    print  str(x) + ";" + str(y) + ";"+ str(z) + ";" + str(z_odom)
+    f = open(timestr + "-pose.txt", "a")
+    f.write(str(x) + ";" + str(y) + ";"+ str(z) + ";" +  str(z_odom) + "\n")
+    f.close()
 
 rospy.init_node('listener_txt_pose_node')
 txt_sub4 = rospy.Subscriber('/odom', Odometry, odom_callback, queue_size = 1)
 txt_sub5 = rospy.Subscriber('/robot_pose_ekf/odom_combined', PoseWithCovarianceStamped, pose_callback, queue_size = 1)
 
 if __name__ == '__main__':
+    timestr = time.strftime("%Y-%m-%d-%H-%M-%S")
     rospy.spin()

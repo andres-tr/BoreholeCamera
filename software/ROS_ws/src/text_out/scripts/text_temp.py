@@ -2,32 +2,28 @@
 import rospy
 from sensor_msgs.msg import Temperature
 from nav_msgs.msg import Odometry
-global z
+z = 0
+z_old = 0
+temp = 0
 
-def callback_pose(data):
-    global z
-    print str(data.header.stamp.secs) + ";" + str(data.temperature) + ";" + str(z)
-    rospy.sleep(5.2)
-
-def callback_odome(data):
-    global z
+def odom_callback(data):
+    global z, z_old
     z = data.pose.pose.position.z
+    if ((z - z_old) < -0.2):
+        z_old = z
+        txt_out()
 
-def listener_csvout():
-    rospy.init_node('listener_csvout', anonymous=True)
-    rospy.Subscriber("/temp", Temperature, callback_pose, queue_size = 1)
-    rospy.Subscriber("/odom", Odometry,callback_odome, queue_size=1)
-    rospy.queue_size = None
-    # spin() simply keeps python from exiting until this node is stopped
-    #rospy.spin()
-    #rospy.Timer(rospy.Duration(2), callback_pose, oneshot=False)
-    #rospy.sleep(10.)
-    while not rospy.is_shutdown():
-        rospy.sleep(1.9)
+def temp_callback(data):
+    global temp
+    temp = data.temperature
 
+def txt_out():
+    print  str(temp) + ";" + str(z)
 
+rospy.init_node('listener_txtout_node')
+txt_sub2 = rospy.Subscriber('/odom', Odometry, odom_callback, queue_size = 1)
+txt_sub3 = rospy.Subscriber('/temp', Temperature, temp_callback, queue_size = 1)
 
 if __name__ == '__main__':
-    msg = Temperature()
-    listener_csvout()
+    rospy.spin()
 

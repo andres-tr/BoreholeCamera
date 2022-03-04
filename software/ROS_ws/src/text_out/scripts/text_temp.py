@@ -30,6 +30,6 @@ txt_sub2 = rospy.Subscriber('/odom', Odometry, odom_callback, queue_size = 1)
 txt_sub3 = rospy.Subscriber('/temp', Temperature, temp_callback, queue_size = 1)
 
 if __name__ == '__main__':
-    timestr = time.strftime("%Y-%m-%d-%H-%tr = time.strftime("%Y-%m-%d-%H-%M-%S")-%S")
+    timestr = time.strftime("%Y-%m-%d-%H-%M-%S")
     rospy.spin()
 

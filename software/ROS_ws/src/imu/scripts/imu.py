@@ -10,9 +10,9 @@ from sensor_msgs.msg import Imu, MagneticField
 from geometry_msgs.msg import Vector3
 
 #ACC deviation variables
-global x_cal = 0.0
-global y_cal = 0.0
-global z_cal = 0.0
+x_cal = 0.0
+y_cal = 0.0
+z_cal = 0.0
 
 #  IMU Magnetometer address  0x1e
 m_add = 0x1e
@@ -89,13 +89,12 @@ def convert_gauss(float_teslas):
 	return float_teslas*0.0001
 
 while not rospy.is_shutdown():
-        global x_cal, y_cal, z_cal
 	#ROS imu msg init
 	imu_msg = Imu()
 	imu_msg.header.stamp = rospy.Time.now()
-        x_cal = rospy.get_param('/x_cal')
-        y_cal = rospy.get_param('/y_cal')
-        z_cal = rospy.get_param('/z_cal')
+        x_cal = rospy.get_param('imu/x_cal')
+        y_cal = rospy.get_param('imu/y_cal')
+        z_cal = rospy.get_param('imu/z_cal')
        
         print x_cal
 	#Check if Gyro is available
@@ -123,11 +122,11 @@ while not rospy.is_shutdown():
                 acc = bus.read_i2c_block_data(ag_add,0x28,6)
 		if len(acc) == 6:
 			xacc = (acc[1] << 8) | acc[0]
-			xacc = float(numpy.int16(xacc))*0.000061
+			xacc = float(numpy.int16(xacc))*0.000061 + x_cal
 			yacc = (acc[3] << 8) | acc[2] 
-			yacc = float(numpy.int16(yacc))*0.000061
+			yacc = float(numpy.int16(yacc))*0.000061 + y_cal
 			zacc = (acc[5] << 8) | acc[4]
-			zacc = float(numpy.int16(zacc))*0.000061
+			zacc = float(numpy.int16(zacc))*0.000061 + z_cal
 			#Twos complement * scale
 			#print "Acc x:" + str(float(numpy.int16(xacc))*0.000732) + " y:" + str(float(numpy.int16(yacc))*0.000732) + " z: " + str(float(numpy.int16(zacc))*0.000732)
 			imu_msg.linear_acceleration = Vector3(convert_accel(xacc), convert_accel(yacc),convert_accel(zacc))

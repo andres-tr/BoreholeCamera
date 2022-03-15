@@ -7,9 +7,9 @@
 
    <!-- Launch imu node -->
    <node name="imu" pkg="imu"  type="imu.py" output="screen">
-   <param name="x_cal" value="1.17427332993" />
-   <param name="y_cal" value="0.11545326168" />
-   <param name="z_cal" value="0.1238900875" />
+   	<param name="x_cal" value="1.17427332993" />
+   	<param name="y_cal" value="0.11545326168" />
+   	<param name="z_cal" value="0.1238900875" />
    </node>
    
    <!-- Launch rosbag -->

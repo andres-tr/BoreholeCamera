@@ -4,7 +4,7 @@
    <arg name="path" default="/home/parallels/" />
    <arg name="file_1" default="2022-03-02-15-26-25" />
 
-   <node pkg="rosbag" type="play" name="player" args="--clock -s 0 $(arg path)$(arg file_1).bag" />
+   <node pkg="rosbag" type="play" name="player" args="--clock -s 130 $(arg path)$(arg file_1).bag" />
   
    <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 base_footprint imu 400" />
 
@@ -26,8 +26,13 @@
 
    <node name="path_node" pkg="path_node"  type="path_node.py" output="screen"/>
 
-   <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_node" output="screen" args="_world_frame:=enu _use_mag:=true _zeta:=0 _mag_bias_x:=0.00000524194 _mag_bias_y:=0.000054329 _mag_bias_z:=0.00000  _use_magnetic_fld_msg:=true _publish_debug_topics:=true _publish_tf:=false stateless:=false">
+   <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_node" output="screen" args="_world_frame:=enu _use_mag:=true _use_magnetic_fld_msg:=true _publish_debug_topics:=true _publish_tf:=false stateless:=false">
     <param name="use_enu" value="true"/>
+    <param name="mag_bias_x" value="0.00000766129"/>
+    <param name="mag_bias_y" value="0.0000608225"/>
+    <param name="mag_bias_z" value="0.0000288961"/>
+    <param name="zeta" value="0.0"/>
+    <remap from="imu/data_raw" to="imu/data_sens" />
    </node>
 
 </launch>

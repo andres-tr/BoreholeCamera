@@ -9,6 +9,10 @@ z_old = 0
 x = 0 
 y = 0
 z = 0
+xq = 0
+yq = 0
+zq = 0
+wq = 0 
 
 def odom_callback(data):
     global z_odom, z_old
@@ -18,16 +22,20 @@ def odom_callback(data):
         txt_out()
 
 def pose_callback(data):
-    global x,y,z
+    global x,y,z, xq, yq, zq, wq
     x = data.pose.pose.position.x
     y = data.pose.pose.position.y
     z = data.pose.pose.position.z
+    xq = data.pose.pose.orientation.x
+    yq = data.pose.pose.orientation.y
+    zq = data.pose.pose.orientation.z
+    wq = data.pose.pose.orientation.w
 
 
 def txt_out():
-    print  str(x) + ";" + str(y) + ";"+ str(z) + ";" + str(z_odom)
+    print  str(x) + ";" + str(y) + ";"+ str(z) + ";" + str(z_odom) + ";" + str(xq) + ";" + str(yq) + ";" + str(zq) + ";" + str(wq)
     f = open(timestr + "-pose.txt", "a")
-    f.write(str(x) + ";" + str(y) + ";"+ str(z) + ";" +  str(z_odom) + "\n")
+    f.write(str(x) + ";" + str(y) + ";"+ str(z) + ";" +  str(z_odom) + ";" + str(xq) + ";" + str(yq) + ";" + str(zq) + ";" + str(wq) + "\n")
     f.close()
 
 rospy.init_node('listener_txt_pose_node')

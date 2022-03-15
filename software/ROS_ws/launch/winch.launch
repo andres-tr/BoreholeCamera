@@ -33,8 +33,13 @@
 
    <node name="path_node" pkg="path_node"  type="path_node.py" output="screen"/>
 
-   <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_node" output="screen" args="_world_frame:=enu _use_mag:=true _zeta:=0 _mag_bias_x:=0.00000524194 _mag_bias_y:=0.000054329 _mag_bias_z:=0.00000  _use_magnetic_fld_msg:=true _publish_debug_topics:=true _publish_tf:=false stateless:=false">
+   <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_node" output="screen" args="_world_frame:=enu _use_mag:=true  _use_magnetic_fld_msg:=true _publish_debug_topics:=true _publish_tf:=false stateless:=false">
     <param name="use_enu" value="true"/>
+    <param name="mag_bias_x" value="0.00000524194"/>
+    <param name="mag_bias_y" value="0.000054329"/>
+    <param name="mag_bias_z" value="0.0000288961"/>
+    <param name="zeta" value="0.0"/>
+
    </node>
 
 </launch>

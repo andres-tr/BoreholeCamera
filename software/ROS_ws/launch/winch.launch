@@ -3,17 +3,14 @@
    <node name="odometry" pkg="odometry"  type="odometry.py" output="screen"/>
 
    <!-- Launch rosbag -->
-   <node pkg="rosbag" type="record" name="rosbag_record"
+   <node pkg="rosbag" type="record" name="rosbag_record_winch"
             args=" /odom /imu/data_raw /imu/mag /temp"
     />
    
 
    <!-- To kill rosbag record properly: rosnode kill /bag -->
 
-   <!--  <node name="video_publisher" pkg="video_publisher"  type="video_publisher.py" output="screen"/>
-   -->
-
-   <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 base_footprint imu 400" />
+   <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0  0 0 0 base_footprint imu 400" />
 
    <node pkg="tf" type="static_transform_publisher" name="link2_broadcaster" args="0 0 0  0 0 0 base_footprint odom 400" />
 
@@ -31,15 +28,13 @@
 
    </node>
 
-   <node name="path_node" pkg="path_node"  type="path_node.py" output="screen"/>
-
    <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_node" output="screen" args="_world_frame:=enu _use_mag:=true  _use_magnetic_fld_msg:=true _publish_debug_topics:=true _publish_tf:=false stateless:=false">
     <param name="use_enu" value="true"/>
     <param name="mag_bias_x" value="0.00000524194"/>
     <param name="mag_bias_y" value="0.000054329"/>
     <param name="mag_bias_z" value="0.0000288961"/>
     <param name="zeta" value="0.0"/>
-
+    <remap from="imu/data_raw" to="imu/data_sens" />
    </node>
 
 </launch>

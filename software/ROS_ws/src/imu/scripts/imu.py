@@ -9,6 +9,11 @@ import rospy
 from sensor_msgs.msg import Imu, MagneticField
 from geometry_msgs.msg import Vector3
 
+#ACC deviation variables
+global x_cal = 0.0
+global y_cal = 0.0
+global z_cal = 0.0
+
 #  IMU Magnetometer address  0x1e
 m_add = 0x1e
 
@@ -84,10 +89,15 @@ def convert_gauss(float_teslas):
 	return float_teslas*0.0001
 
 while not rospy.is_shutdown():
+        global x_cal, y_cal, z_cal
 	#ROS imu msg init
 	imu_msg = Imu()
 	imu_msg.header.stamp = rospy.Time.now()
-	
+        x_cal = rospy.get_param('/x_cal')
+        y_cal = rospy.get_param('/y_cal')
+        z_cal = rospy.get_param('/z_cal')
+       
+        print x_cal
 	#Check if Gyro is available
 	byte = bus.read_byte_data(ag_add , 0x17)
 	if byte == 7:

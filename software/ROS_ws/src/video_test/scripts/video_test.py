@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import time
 import rospy
 from sensor_msgs.msg import Image
 from nav_msgs.msg import Odometry
@@ -16,7 +16,7 @@ VideoRaw = rospy.Publisher('VideoRaw', Image, queue_size=10)
 #cam = cv2.VideoCapture('/home/parallels/VideoPozoElSalitre.mp4')
 
 #Ip Camera 
-vcap = cv2.VideoCapture("/home/parallels/04_01_2021_16_371.avi")
+vcap = cv2.VideoCapture("/home/parallels/24_11_2020_13_391.avi")
 frame_width = int(vcap.get(3))
 frame_height = int(vcap.get(4))
 
@@ -32,9 +32,10 @@ def listener():
     global meters
     #rospy.init_node('listenerZvideoCap', anonymous=True)
     rospy.Subscriber("odom", Odometry, callback)
-    rate = rospy.Rate(10)
+    rate = rospy.Rate(0.04)
     while not rospy.is_shutdown():
        if vcap.grab():
+          time.sleep(0.04)
           ret, frame = vcap.retrieve()
           text = "Metros: %.3f" % meters
           cv2.putText(frame,text,(frame_width/3,frame_height/2),cv2.FONT_HERSHEY_DUPLEX,1,(255,255,255),1)

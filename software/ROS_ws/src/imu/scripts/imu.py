@@ -122,14 +122,14 @@ while not rospy.is_shutdown():
                 acc = bus.read_i2c_block_data(ag_add,0x28,6)
 		if len(acc) == 6:
 			xacc = (acc[1] << 8) | acc[0]
-			xacc = float(numpy.int16(xacc))*0.000061 + x_cal
+			xacc = (float(numpy.int16(xacc))*0.000061)
 			yacc = (acc[3] << 8) | acc[2] 
-			yacc = float(numpy.int16(yacc))*0.000061 + y_cal
+			yacc = (float(numpy.int16(yacc))*0.000061)
 			zacc = (acc[5] << 8) | acc[4]
-			zacc = float(numpy.int16(zacc))*0.000061 + z_cal
+			zacc = (float(numpy.int16(zacc))*0.000061)
 			#Twos complement * scale
 			#print "Acc x:" + str(float(numpy.int16(xacc))*0.000732) + " y:" + str(float(numpy.int16(yacc))*0.000732) + " z: " + str(float(numpy.int16(zacc))*0.000732)
-			imu_msg.linear_acceleration = Vector3(convert_accel(xacc), convert_accel(yacc),convert_accel(zacc))
+			imu_msg.linear_acceleration = Vector3(convert_accel(xacc) + x_cal ,  convert_accel(yacc) + y_cal ,convert_accel(zacc) + z_cal)
                         imu_msg.linear_acceleration_covariance =  [0.00000, 0.0, 0.0, 0.00000, 0.0, 0.0, 0.00000, 0.0, 0.0]
 			imu_msg.orientation_covariance =  [-1, 0.0, 0.0, 0.00000, 0.0, 0.0, 0.00000, 0.0, 0.0]
 			#imu_pub.publish(imu_msg)

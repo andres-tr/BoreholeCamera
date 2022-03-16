@@ -9,7 +9,7 @@ rospy.init_node('lsm9ds1_calibration')
 def callback(data):
     rospy.set_param('/imu/x_cal', data.linear_acceleration.x*-1)
     rospy.set_param('/imu/y_cal', data.linear_acceleration.y*-1)
-    rospy.set_param('/imu/z_cal', data.linear_acceleration.z*-1)    
+    rospy.set_param('/imu/z_cal', 9.81 - data.linear_acceleration.z)    
     rospy.signal_shutdown("Calibration Finished")    
  
 def listener():

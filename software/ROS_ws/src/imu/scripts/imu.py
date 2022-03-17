@@ -10,9 +10,9 @@ from sensor_msgs.msg import Imu, MagneticField
 from geometry_msgs.msg import Vector3
 
 #ACC deviation variables
-x_cal = 0.0
-y_cal = 0.0
-z_cal = 0.0
+acc_bias_x = 0.0
+acc_bias_y = 0.0
+acc_bias_z = 0.0
 
 #  IMU Magnetometer address  0x1e
 m_add = 0x1e
@@ -92,9 +92,9 @@ while not rospy.is_shutdown():
 	#ROS imu msg init
 	imu_msg = Imu()
 	imu_msg.header.stamp = rospy.Time.now()
-        x_cal = rospy.get_param('imu/x_cal')
-        y_cal = rospy.get_param('imu/y_cal')
-        z_cal = rospy.get_param('imu/z_cal')
+        acc_bias_x = rospy.get_param('imu/acc_bias_x')
+        acc_bias_y = rospy.get_param('imu/acc_bias_y')
+        acc_bias_z = rospy.get_param('imu/acc_bias_z')
        
         print x_cal
 	#Check if Gyro is available
@@ -129,7 +129,7 @@ while not rospy.is_shutdown():
 			zacc = (float(numpy.int16(zacc))*0.000061)
 			#Twos complement * scale
 			#print "Acc x:" + str(float(numpy.int16(xacc))*0.000732) + " y:" + str(float(numpy.int16(yacc))*0.000732) + " z: " + str(float(numpy.int16(zacc))*0.000732)
-			imu_msg.linear_acceleration = Vector3(convert_accel(xacc) + x_cal ,  convert_accel(yacc) + y_cal ,convert_accel(zacc) + z_cal)
+			imu_msg.linear_acceleration = Vector3(convert_accel(xacc) + acc_bias_x ,  convert_accel(yacc) + acc_bias_y ,convert_accel(zacc) + acc_bias_z)
                         imu_msg.linear_acceleration_covariance =  [0.00000, 0.0, 0.0, 0.00000, 0.0, 0.0, 0.00000, 0.0, 0.0]
 			imu_msg.orientation_covariance =  [-1, 0.0, 0.0, 0.00000, 0.0, 0.0, 0.00000, 0.0, 0.0]
 			#imu_pub.publish(imu_msg)

@@ -21,18 +21,24 @@
      <param name="debug" value="true"/>
      <remap from="vo" to="/odom" />
      <remap from="imu_data" to="imu/data" />
-
+   
    </node>
 
    <node name="path_node" pkg="path_node"  type="path_node.py" output="screen"/>
 
    <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_node" output="screen" args="_world_frame:=enu _use_mag:=true _use_magnetic_fld_msg:=true _publish_debug_topics:=true _publish_tf:=false stateless:=false">
-    <param name="use_enu" value="true"/>
-    <param name="mag_bias_x" value="0.00000766129"/>
-    <param name="mag_bias_y" value="0.0000608225"/>
-    <param name="mag_bias_z" value="0.0000288961"/>
-    <param name="zeta" value="0.0"/>
-    <remap from="imu/data_raw" to="imu/data_sens" />
+    	<param name="use_enu" value="true"/>
+    	<param name="mag_bias_x" value="0.00000766129"/>
+    	<param name="mag_bias_y" value="0.0000608225"/>
+    	<param name="mag_bias_z" value="0.0000288961"/>
+    	<param name="zeta" value="0.0"/>
+        <remap from="imu/data_raw" to="imu/data_wbias" />
    </node>
+
+   <param name="imu/acc_bias_x" value="0.979259012278" />
+   <param name="imu/acc_bias_y" value="0.470187894716" />
+   <param name="imu/acc_bias_z" value="0.1053457812" />
+   
+   <node name="calibration" pkg="calibration"  type="rosbag_acc_bias.py" output="screen"/>
 
 </launch>

@@ -43,8 +43,8 @@ if __name__ == '__main__':
     map_ax.autoscale(enable=True, axis='both', tight=True)
 
     # # # Setting the axes properties
-    map_ax.set_xlim3d([-10.0, 10.0])
-    map_ax.set_ylim3d([-10.0, 10.0])
+    map_ax.set_xlim3d([-2.0, 2.0])
+    map_ax.set_ylim3d([-2.0, 2.0])
     map_ax.set_zlim3d([-25.0, 0.0])
     
     map_ax.set_title('Registro de Verticalidad')

@@ -10,7 +10,7 @@ from sensor_msgs.msg import Temperature
 #Init Node temp
 temp_pub = rospy.Publisher('temp', Temperature, queue_size=50)
 rospy.init_node('temp', anonymous=True)
-r = rospy.Rate(10) # 10hz
+r = rospy.Rate(5) # 10hz
 
 if not sensor.init():
 	print("Error initializing sensor")

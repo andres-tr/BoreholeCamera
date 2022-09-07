@@ -7,15 +7,14 @@
 
    <!-- Launch imu node -->
    <node name="imu" pkg="imu"  type="imu.py" output="screen">
-   	<param name="x_cal" value="0.0" />
-   	<param name="y_cal" value="0.0" />
-   	<param name="z_cal" value="0.0" />
    </node>
    
    <!-- Launch rosbag -->
+
+
    <node pkg="rosbag" type="record" name="rosbag_record_robot"
             args="/imu/data_raw /imu/mag /temp"
-    />
+    /> 
 
 </launch>
 

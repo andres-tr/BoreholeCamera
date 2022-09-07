@@ -10,9 +10,9 @@ from sensor_msgs.msg import Imu, MagneticField
 from geometry_msgs.msg import Vector3
 
 #ACC deviation variables
-acc_bias_x = 0.0
-acc_bias_y = 0.0
-acc_bias_z = 0.0
+acc_bias_x = 0.796259
+acc_bias_y = 0.192187894
+acc_bias_z = 0.08534578
 
 #  IMU Magnetometer address  0x1e
 m_add = 0x1e
@@ -74,7 +74,7 @@ heading = 0.0
 rospy.init_node('lsm9ds1_sensor')
 imu_pub = rospy.Publisher("imu/data_raw", Imu, queue_size=50)
 imu_pub2 = rospy.Publisher("imu/mag", MagneticField, queue_size=50)
-rate = rospy.Rate(25) # 10hz
+rate = rospy.Rate(15) # 10hz
 
 #Convert G to m/s
 def convert_accel(float_G):
@@ -92,11 +92,9 @@ while not rospy.is_shutdown():
 	#ROS imu msg init
 	imu_msg = Imu()
 	imu_msg.header.stamp = rospy.Time.now()
-        acc_bias_x = rospy.get_param('imu/acc_bias_x')
-        acc_bias_y = rospy.get_param('imu/acc_bias_y')
-        acc_bias_z = rospy.get_param('imu/acc_bias_z')
-       
-        print x_cal
+        #acc_bias_x = rospy.get_param('imu/acc_bias_x')
+        #acc_bias_y = rospy.get_param('imu/acc_bias_y')
+        #acc_bias_z = rospy.get_param('imu/acc_bias_z')
 	#Check if Gyro is available
 	byte = bus.read_byte_data(ag_add , 0x17)
 	if byte == 7:

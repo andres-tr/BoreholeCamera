@@ -2,9 +2,10 @@
   
    <param name="/use_sim_time" value="True"/>
    <arg name="path" default="/home/parallels/" />
-   <arg name="file_1" default="2022-03-02-15-26-25" />
+   <arg name="file_1" default="2022-08-19-11-41-53-noTopi"/>
+   <arg name="file_2" default="2022-08-19-16-42-06" />
 
-   <node pkg="rosbag" type="play" name="player" args="--clock -s 130 $(arg path)$(arg file_1).bag" />
+   <node pkg="rosbag" type="play" name="player" args="--clock -s 0 $(arg path)$(arg file_1).bag $(arg path)$(arg file_2).bag.active" />
   
    <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 base_footprint imu 400" />
 
@@ -14,8 +15,8 @@
 
    <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf" output="screen">
      <param name="output_frame" value="odom_combined"/>
-     <param name="freq" value="30"/>
-     <param name="sensor_timeout" value="8.0"/>
+     <param name="freq" value="10"/>
+     <param name="sensor_timeout" value="15.0"/>
      <param name="odom_used" value="false"/>
      <param name="imu_used" value="true"/>
      <param name="vo_used" value="true"/>
@@ -27,18 +28,20 @@
 
    <node name="path_node" pkg="path_node"  type="path_node.py" output="screen"/>
 
+   <node name="polar_node" pkg="plot"  type="polar_data.py" output="screen"/>
+
    <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_node" output="screen" args="_world_frame:=enu _use_mag:=true _use_magnetic_fld_msg:=true _publish_debug_topics:=true _publish_tf:=false stateless:=false">
     	<param name="use_enu" value="true"/>
-    	<param name="mag_bias_x" value="0.00000766129"/>
-    	<param name="mag_bias_y" value="0.0000608225"/>
+    	<param name="mag_bias_x" value="-0.00000368664"/>
+    	<param name="mag_bias_y" value="-0.0000516401"/>
     	<param name="mag_bias_z" value="0.0000288961"/>
-    	<param name="zeta" value="0.0"/>
+    	<param name="gain" value="0.1"/>
         <remap from="imu/data_raw" to="imu/data_wbias" />
    </node>
 
-   <param name="imu/acc_bias_x" value="0.979259012278" />
-   <param name="imu/acc_bias_y" value="0.470187894716" />
-   <param name="imu/acc_bias_z" value="0.1053457812" />
+   <param name="imu/acc_bias_x" value="0.51500" />
+   <param name="imu/acc_bias_y" value="0.31389" />
+   <param name="imu/acc_bias_z" value="-0.02" />
    
    <node name="calibration" pkg="calibration"  type="rosbag_acc_bias.py" output="screen"/>
    

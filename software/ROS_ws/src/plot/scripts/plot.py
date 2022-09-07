@@ -12,15 +12,15 @@ delta = -0.1
 
 def update_line(hl, new_data):
     xdata, ydata, zdata = hl._verts3d
-    hl.set_xdata(list(np.append(xdata, new_data[0])))
-    hl.set_ydata(list(np.append(ydata, new_data[1])))
+    hl.set_xdata(list(np.append(xdata, new_data[0]*1.0)))
+    hl.set_ydata(list(np.append(ydata, new_data[1]*1.0)))
     hl.set_3d_properties(list(np.append(zdata, new_data[2])))
-    hl.set_linewidth(10)
+    hl.set_linewidth(3)
     plt.draw()
 
 def callback(data):
     global val2, delta
-    val1 = data.pose.pose.position.z
+    val1 =data.pose.pose.position.z - 4.26
     #rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.pose.pose.position.z)
     if ((val1 - val2) <= delta):
         val2 = val1
@@ -43,16 +43,16 @@ if __name__ == '__main__':
     map_ax.autoscale(enable=True, axis='both', tight=True)
 
     # # # Setting the axes properties
-    map_ax.set_xlim3d([-2.0, 2.0])
-    map_ax.set_ylim3d([-2.0, 2.0])
-    map_ax.set_zlim3d([-25.0, 0.0])
+    map_ax.set_xlim3d([-2.5, 2.5])
+    map_ax.set_ylim3d([-2.5, 2.5])
+    map_ax.set_zlim3d([-30.0, 0.0])
     
     map_ax.set_title('Registro de Verticalidad')
     map_ax.set_xlabel('X - ESTE - metros')
     map_ax.set_ylabel('Y - NORTE - metros')
     map_ax.set_zlabel('Z - PROFUNDIDAD - metros')    
 
-    hl, = map_ax.plot3D([0], [0], [0])
+    hl, = map_ax.plot3D([0],[0],[-4.28])
     
     listener()
 

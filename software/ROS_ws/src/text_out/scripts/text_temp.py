@@ -4,13 +4,14 @@ import time
 from sensor_msgs.msg import Temperature
 from nav_msgs.msg import Odometry
 z = 0
-z_old = 0
+z_old = -29.1
 temp = 0
 
 def odom_callback(data):
     global z, z_old
     z = data.pose.pose.position.z
-    if ((z - z_old) < -0.2):
+    #print str(z-z_old)
+    if ((z - z_old) > 0.05):
         z_old = z
         txt_out()
 
